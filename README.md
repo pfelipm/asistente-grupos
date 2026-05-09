@@ -14,50 +14,80 @@
 
 ### 🎯 ¿De qué va esto?
 
-Si gestionas un dominio de **Google Workspace**, sabrás que mantener los grupos de correo actualizados (claustros, departamentos, alumnos por niveles...) puede convertirse en un "ritual" semanal bastante tedioso. 
+Si gestionas un dominio de **Google Workspace**, sabrás que mantener los grupos de correo actualizados (claustros, departamentos, alumnos por niveles...) puede convertirse en un ritual semanal bastante tedioso. 
 
-Este proyecto nace para automatizar ese proceso. Permite sincronizar listas de miembros (usuarios internos y externos) desde una sencilla hoja de cálculo hacia los grupos del servicio de **Google Groups**, ya sea de forma manual o programando una ejecución automática.
+Este proyecto nace para automatizar ese proceso. Permite sincronizar listas de miembros (usuarios internos y externos) desde una sencilla hoja de cálculo hacia los grupos del servicio de **Google Groups**. La sincronización es **estrictamente unidireccional**: la lista de miembros del grupo será exclusivamente la indicada en la pestaña de cada grupo. El script añadirá nuevos miembros o eliminará los existentes que no estén en la hoja de manera automática e irrevocable.
 
-### 📜 Una historia de "cocción lenta" (90% Humana, 10% IA)
+### 📜 Una historia de cocción lenta (90% humana, 10% IA)
 
 Este no es un proyecto de "usar y tirar" generado en 5 minutos por un bot. Su historia tiene solera:
 
-1.  **El origen (Junio 2023):** Fue creado de manera totalmente manual para resolver una necesidad real en el centro educativo donde soy Jefe de Estudios, Tecnología y Calidad.
-2.  **La prueba de fuego:** Ha estado funcionando "en la sombra" durante **3 cursos escolares completos** (23/24, 24/25 y 25/26) con una fiabilidad total.
-3.  **El empujón final (Mayo 2026):** Siempre quise liberarlo, pero me faltaba tiempo para pulir la interfaz de usuario. Gracias a **Gemini CLI**, en una mañana de sábado, hemos logrado "cablear" ese diálogo de programación granular que tanto tiempo llevaba en mi cabeza.
-
-En resumen: es un código con **90% de ADN humano** y un **10% de potencia IA** para los retoques finales de UX.
+1.  **El origen (junio 2023):** Fue creado de manera totalmente manual para resolver una necesidad real en el centro educativo donde soy Jefe de Estudios, Tecnología y Calidad (puedes ver el [tuit original de su gestación aquí](https://x.com/pfelipm/status/1671536677091770369)).
+2.  **La prueba de fuego:** Ha estado funcionando en la sombra durante **3 cursos escolares completos** (23/24, 24/25 y 25/26) con una fiabilidad total.
+3.  **El empujón final (mayo 2026):** Siempre quise liberarlo, pero me faltaba tiempo para pulir la interfaz de usuario. Gracias a **Gemini CLI**, en una mañana de sábado, hemos logrado cablear ese diálogo de programación granular que tanto tiempo llevaba en mi cabeza.
 
 ---
 
 ### ✨ Características principales
 
-1.  **Sincronización Inteligente:** Añade nuevos miembros y elimina los que ya no están en la lista con un solo clic.
-2.  **Planificador Granular:** Olvídate de editar constantes en el código. Configura la sincronización cada X horas, ciertos días de la semana (ej. Lunes, Miércoles y Viernes) o cada X días, todo desde un modal visual.
-3.  **Registro y Auditoría:** Una hoja de "Registro" detalla cada operación. Si pasas el ratón sobre los números, verás una **nota de celda** con la lista exacta de emails añadidos o eliminados.
-4.  **Control Total:** Tú decides si quieres registrar resúmenes o detalles mediante sencillos interruptores (checks) en la propia hoja.
-5.  **Directorio a mano:** Descarga la lista de usuarios y grupos de tu dominio con un botón para facilitar la creación de nuevas pestañas de gestión.
+1.  **Sincronización inteligente:** Gestión de altas y bajas con un solo clic o de forma programada.
+2.  **Planificador granular:** Configura la sincronización cada X horas, ciertos días de la semana o cada X días desde un modal visual.
+3.  **Registro y auditoría:** Historial detallado con notas de celda que enumeran los emails específicos afectados.
+4.  **Directorio consolidado:** Obtención automática de usuarios (activos y suspendidos) y grupos del dominio.
 
 ---
 
-### 🚀 Cómo empezar
+### 🚀 Cómo empezar y flujo de trabajo
 
-La distribución de este proyecto es ultra-sencilla. No necesitas instalar `clasp` ni pelearte con la consola (a menos que quieras):
+La distribución se realiza a partir de esta **[plantilla de Google Sheets](https://docs.google.com/spreadsheets/d/1ZwuDBCEZKd1ELFGHC67WAgTrJvWyHyNrBU0QG0P3Zso/edit?usp=sharing)** que debes duplicar.
 
-1.  **Crea tu copia:** Duplica esta **[Plantilla de Google Sheets](https://docs.google.com/spreadsheets/d/1ZwuDBCEZKd1ELFGHC67WAgTrJvWyHyNrBU0QG0P3Zso/edit?usp=sharing)**.
-2.  **Autoriza:** Ve al menú `🐙 Asistente de Grupos` y selecciona cualquier opción. Google te pedirá permisos (es un script que usa el servicio de Administración de Directorio).
-3.  **Configura:** Sigue las instrucciones de la hoja "Directorio" para empezar a gestionar tus grupos.
+#### 1. Preparación del directorio
+Tras autorizar el script, el primer paso es poblar la hoja **"Directorio"**. Usa los comandos del menú para descargar los usuarios y grupos de tu dominio. Mediante fórmulas internas, se construirá un directorio consolidado:
+*   Los emails en color normal son usuarios o grupos activos.
+*   Los emails en **gris** corresponden a usuarios suspendidos.
+
+#### 2. Configuración de grupos
+Para cada grupo que desees gestionar:
+1.  Duplica la pestaña **"Plantilla Grupo"**.
+2.  Dale un nombre significativo (se recomienda usar códigos cortos).
+3.  Rellena los campos necesarios (email del grupo y lista de miembros).
+4.  Asegúrate de marcar el check de sincronización si quieres que se procese en las ejecuciones en lote.
+
+#### 3. Ejecución de la sincronización
+Puedes sincronizar de dos formas:
+*   **Manual:** Desde el menú personalizado, sincroniza la hoja activa o todas las marcadas.
+*   **Automática:** Usa el planificador para establecer una recurrencia (ej. lunes, miércoles y viernes a las 08:00h).
+
+<p align="center">
+  <img src="assets/programador.png" alt="Planificador granular" width="400">
+</p>
+
+---
+
+### 🛠️ Comandos del menú
+
+<img src="assets/menu.png" alt="Menú personalizado" align="right" width="250">
+
+*   **🔄 Sincronizar hoja activa:** Procesa solo la pestaña en la que te encuentras.
+*   **🔃 Sincronizar las hojas marcadas:** Sincroniza en lote todas las pestañas que tengan el check de activación marcado.
+*   **👤 Descargar usuarios / 👥 Descargar grupos:** Actualiza los datos maestros del dominio en la hoja Directorio.
+*   **🟢 Programar / ⚙️ Consultar o modificar programación:** Abre el diálogo para configurar o revisar la ejecución automática.
+*   **🟠 Detener sincronización:** Elimina todos los activadores y detiene el proceso automático.
+*   **⚠️ Reparar sistema:** Limpia de forma profunda cualquier activador residual del proyecto.
+*   **ℹ️ Acerca de...:** Información de versión y créditos.
+
+<br clear="right">
 
 ---
 
 ### 🤝 Contribuciones
 
-¿Has encontrado un bug o tienes una idea genial? Siéntete libre de abrir un *Issue* o enviar un *Pull Request*. Eso sí, el logo del pulpo es sagrado.
+¿Has encontrado un bug o tienes una idea genial? Siéntete libre de abrir un *issue* o enviar un *pull request*. 
 
 ### ✍️ Autoría y agradecimientos
 
 *   **Autor:** Pablo Felip ([@pfelipm](https://twitter.com/pfelipm))
-*   **Licencia:** GNU GPL v3. Libertad total para usarlo y modificarlo, siempre que mantengas la autoría y compartas bajo la misma licencia.
+*   **Licencia:** GNU GPL v3.
 *   **Repositorio:** [https://github.com/pfelipm/asistente-grupos](https://github.com/pfelipm/asistente-grupos)
 
 ---
