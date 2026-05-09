@@ -56,6 +56,12 @@ Tras autorizar el script, el primer paso es poblar la hoja **"Directorio"**. Usa
 *   Los emails en color normal son usuarios o grupos activos.
 *   Los emails en **gris** corresponden a usuarios suspendidos.
 
+Además, el sistema soporta la gestión de **miembros externos** (usuarios o grupos que no pertenecen a tu organización). Solo tienes que añadirlos manualmente en la sección central de la hoja **"Directorio"**, indicando su nombre y dirección de correo electrónico completa. Estos miembros aparecerán automáticamente como opciones seleccionables en las pestañas de tus grupos.
+
+<p align="center">
+  <img src="assets/usuarios externos.png" alt="Gestión de usuarios externos">
+</p>
+
 #### 2. Configuración de grupos
 Para cada grupo que desees gestionar:
 1.  Duplica la pestaña **"Plantilla Grupo"**.
