@@ -49,7 +49,7 @@ Este no es un proyecto de "usar y tirar" generado en 5 minutos por un bot. Su hi
 
 ### 🚀 Cómo empezar y flujo de trabajo
 
-La distribución se realiza a partir de esta **[plantilla de Google Sheets](https://docs.google.com/spreadsheets/d/1ZwuDBCEZKd1ELFGHC67WAgTrJvWyHyNrBU0QG0P3Zso/edit?usp=sharing)** que debes duplicar.
+La distribución se realiza a partir de esta **[plantilla de Google Sheets](https://docs.google.com/spreadsheets/d/1EcPlAlm4K-ekocVoLgHZC0uu8uVezL0BmZogzFfTsH8/edit?usp=sharing)** que debes duplicar.
 
 #### 1. Preparación del directorio
 Tras autorizar el script, el primer paso es poblar la hoja **"Directorio"**. Usa los comandos del menú para descargar los usuarios y grupos de tu dominio. Mediante fórmulas internas, se construirá un directorio consolidado:
