@@ -24,7 +24,7 @@ Este no es un proyecto de "usar y tirar" generado en 5 minutos por un bot. Su hi
 
 1.  **El origen (junio 2023):** Fue creado de manera totalmente manual para resolver una necesidad real en el centro educativo donde soy Jefe de Estudios, Tecnología y Calidad (puedes ver el [tuit original de su gestación aquí](https://x.com/pfelipm/status/1671536677091770369)).
 2.  **La prueba de fuego:** Ha estado funcionando en la sombra durante **3 cursos escolares completos** (23/24, 24/25 y 25/26) con una fiabilidad total.
-3.  **El empujón final (mayo 2026):** Siempre quise liberarlo, pero me faltaba tiempo para pulir la interfaz de usuario. Gracias a **Gemini CLI**, en una mañana de sábado, hemos logrado cablear ese diálogo de programación granular que tanto tiempo llevaba en mi cabeza y añadir alguna que otra mejora de usabilidad.
+3.  **El empujón final (mayo 2026):** Siempre quise liberarlo, pero me faltaba tiempo para pulir la interfaz de usuario. Gracias a **Gemini CLI**, en una mañana de sábado, hemos logrado cablear ese diálogo de programación granular, que estaba ya casi listo, y añadir alguna que otra mejora de usabilidad.
 
 ---
 
