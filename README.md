@@ -91,7 +91,7 @@ La hoja **"Registro"** permite llevar un seguimiento exhaustivo de qué cambios 
 *   **🔄 Sincronizar hoja activa:** Procesa solo la pestaña en la que te encuentras.
 *   **🔃 Sincronizar las hojas marcadas:** Sincroniza en lote todas las pestañas que tengan el check de activación marcado.
 *   **👤 Descargar usuarios / 👥 Descargar grupos:** Actualiza los datos maestros del dominio en la hoja Directorio.
-*   **🟢 Programar / ⚙️ Consultar o modificar programación:** Abre el diálogo para configurar o revisar la ejecución automática.
+*   **🟢 Programar / ⚙️ Consultar o modificar programación:** Este comando es dinámico; mostrará la opción de programar si no hay un activador activo, o la de consultar/modificar si ya existe uno configurado. Abre el diálogo para gestionar la ejecución automática.
 *   **🟠 Detener sincronización:** Elimina todos los activadores y detiene el proceso automático con confirmación visual.
 *   **⚠️ Reparar sistema:** Limpia de forma profunda cualquier activador residual del proyecto.
 *   **ℹ️ Acerca de...:** Información de versión y créditos.
