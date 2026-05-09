@@ -16,7 +16,11 @@
 
 Si gestionas un dominio de **Google Workspace**, sabrás que mantener los grupos de correo actualizados (claustros, departamentos, alumnos por niveles...) puede convertirse en un ritual semanal bastante tedioso. 
 
-Este proyecto nace para automatizar ese proceso. Permite sincronizar listas de miembros (usuarios internos y externos) desde una sencilla hoja de cálculo hacia los grupos del servicio de **Google Groups**. La sincronización es **estrictamente unidireccional**: la lista de miembros del grupo será exclusivamente la indicada en la pestaña de cada grupo. El script añadirá nuevos miembros o eliminará los existentes que no estén en la hoja de manera automática e irrevocable.
+Este proyecto nace para automatizar ese proceso. Permite sincronizar listas de miembros (usuarios internos y externos) desde una sencilla hoja de cálculo hacia los grupos del servicio de **Google Groups**. 
+
+La sincronización es **estrictamente unidireccional**: la lista de miembros del grupo será exclusivamente la indicada en la pestaña de cada grupo. El script añadirá nuevos miembros o eliminará los existentes que no estén en la hoja de manera automática e irrevocable.
+
+> 💡 **Nota técnica sobre membresía:** El script soporta la inclusión de grupos como miembros de otros grupos, pero la comprobación de pertenencia se realiza de forma **directa**. Esto significa que el script no verifica si un usuario ya pertenece al grupo de forma anidada (a través de otro grupo intermedio) antes de procesar el alta o la baja.
 
 ### 📜 Una historia de cocción lenta (90% humana, 10% IA)
 
@@ -31,7 +35,10 @@ Este no es un proyecto de "usar y tirar" generado en 5 minutos por un bot. Su hi
 ### ✨ Características principales
 
 1.  **Sincronización inteligente:** Gestión de altas y bajas con un solo clic o de forma programada.
-2.  **Planificador granular:** Configura la sincronización cada X horas, ciertos días de la semana o cada X días desde un modal visual.
+2.  **Planificador granular:** Olvídate de editar el código. Configura la ejecución automática con total flexibilidad:
+    *   **Por horas:** Cada X horas (de 1 a 12).
+    *   **Por días:** Cada X días (de 1 a 7) en una franja horaria específica.
+    *   **Por semanas:** Selección de **días específicos de la semana** (ej. lunes, miércoles y viernes) a una hora determinada.
 3.  **Registro y auditoría:** Historial detallado con notas de celda que enumeran los emails específicos afectados.
 4.  **Directorio consolidado:** Obtención automática de usuarios (activos y suspendidos) y grupos del dominio.
 
@@ -56,11 +63,24 @@ Para cada grupo que desees gestionar:
 #### 3. Ejecución de la sincronización
 Puedes sincronizar de dos formas:
 *   **Manual:** Desde el menú personalizado, sincroniza la hoja activa o todas las marcadas.
-*   **Automática:** Usa el planificador para establecer una recurrencia (ej. lunes, miércoles y viernes a las 08:00h).
+*   **Automática:** Usa el planificador para establecer una recurrencia.
 
 <p align="center">
-  <img src="assets/programador.png" alt="Planificador granular" width="400">
+  <img src="assets/programador.png" alt="Planificador granular" width="450">
 </p>
+
+---
+
+### 📊 Control de registro y auditoría
+
+La hoja **"Registro"** permite llevar un seguimiento exhaustivo de qué cambios se han realizado en cada grupo y cuándo. Para mayor comodidad, puedes controlar el nivel de detalle mediante dos interruptores en la propia hoja:
+
+<p align="center">
+  <img src="assets/registro.png" alt="Pestaña de registro" width="600">
+</p>
+
+*   **☑️ Registrar resumen:** Si está activo, se insertará una nueva fila por cada operación de sincronización con el conteo de altas, bajas y errores.
+*   **☑️ Registrar emails en notas:** Si está activo (y también el de resumen), las celdas de altas y bajas incluirán una **nota de celda** con el listado detallado de las direcciones de email afectadas. Solo tienes que pasar el ratón por encima para auditar el proceso.
 
 ---
 
@@ -72,7 +92,7 @@ Puedes sincronizar de dos formas:
 *   **🔃 Sincronizar las hojas marcadas:** Sincroniza en lote todas las pestañas que tengan el check de activación marcado.
 *   **👤 Descargar usuarios / 👥 Descargar grupos:** Actualiza los datos maestros del dominio en la hoja Directorio.
 *   **🟢 Programar / ⚙️ Consultar o modificar programación:** Abre el diálogo para configurar o revisar la ejecución automática.
-*   **🟠 Detener sincronización:** Elimina todos los activadores y detiene el proceso automático.
+*   **🟠 Detener sincronización:** Elimina todos los activadores y detiene el proceso automático con confirmación visual.
 *   **⚠️ Reparar sistema:** Limpia de forma profunda cualquier activador residual del proyecto.
 *   **ℹ️ Acerca de...:** Información de versión y créditos.
 
