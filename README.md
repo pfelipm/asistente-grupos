@@ -76,7 +76,7 @@ Puedes sincronizar de dos formas:
 La hoja **"Registro"** permite llevar un seguimiento exhaustivo de qué cambios se han realizado en cada grupo y cuándo. Para mayor comodidad, puedes controlar el nivel de detalle mediante dos interruptores en la propia hoja:
 
 <p align="center">
-  <img src="assets/registro.png" alt="Pestaña de registro" width="600">
+  <img src="assets/registro.png" alt="Pestaña de registro">
 </p>
 
 *   **☑️ Registrar resumen:** Si está activo, se insertará una nueva fila por cada operación de sincronización con el conteo de altas, bajas y errores.
