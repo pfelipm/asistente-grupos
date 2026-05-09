@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <style>
+    .flex-center {
+      display: flex;
+      align-items: center;
+    }
+    .btn {
+      text-transform: none; /* Evita que Materialize ponga todo en mayúsculas si no se desea, aunque aquí usaremos MANTENER/DETENER */
+      font-weight: bold;
+    }
+    .container {
+      padding-top: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <h6 style="font-weight: bold;" class="flex-center">
+          <i class="material-icons orange-text" style="margin-right: 10px;">warning</i>
+          <span>Confirmación requerida</span>
+        </h6>
+        <p><?= mensaje ?></p>
+      </div>
+    </div>
+
+    <!-- Barra de progreso -->
+    <div id="progreso" class="progress" style="display: none;">
+      <div class="indeterminate"></div>
+    </div>
+
+    <div class="row" style="margin-top: 20px;">
+      <div class="col s6">
+        <button id="btn_No" class="btn waves-effect waves-light <?= colorNo ?> <?= colorNo.includes('grey') ? 'black-text' : '' ?>" style="width: 100%;"><?= txtNo ?></button>
+      </div>
+      <div class="col s6">
+        <button id="btn_Si" class="btn waves-effect waves-light orange darken-4" style="width: 100%;"><?= txtSi ?></button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('btn_No').onclick = () => google.script.host.close();
+    
+    document.getElementById('btn_Si').onclick = function() {
+      const btnSi = this;
+      const btnNo = document.getElementById('btn_No');
+      const progreso = document.getElementById('progreso');
+      const funcion = '<?= funcionExito ?>';
+      
+      btnSi.disabled = true;
+      btnNo.disabled = true;
+      progreso.style.display = 'block';
+
+      google.script.run
+        .withSuccessHandler((resultado) => {
+          if (resultado && resultado.estilo) {
+            M.toast({
+              displayLength: 7000,
+              classes: `rounded ${resultado.estilo.color}`,
+              html: `<div style="display: flex; align-items: center;"><i class="material-icons" style="margin-right: 10px;">${resultado.estilo.icono}</i><span>${resultado.mensaje}</span></div>`
+            });
+          }
+          setTimeout(() => google.script.host.close(), 3500);
+        })
+        .withFailureHandler((err) => {
+          alert("Error: " + err);
+          google.script.host.close();
+        })
+        [funcion]();
+    };
+  </script>
+</body>
+
+</html>
