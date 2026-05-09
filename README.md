@@ -121,4 +121,4 @@ La hoja **"Registro"** permite llevar un seguimiento exhaustivo de qué cambios 
 *   **Repositorio:** [https://github.com/pfelipm/asistente-grupos](https://github.com/pfelipm/asistente-grupos)
 
 ---
-<p align="center">Hecho con ❤️, café y un poco de ayuda de Gemini CLI.</p>
+<p align="center">Hecho con ❤️, mucho ☕🧊 y algo así como un 10% de ayuda de Gemini CLI.</p>
