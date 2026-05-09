@@ -4,6 +4,9 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Google%20Apps%20Script-4285F4?style=for-the-badge&logo=google-apps-script&logoColor=white" alt="Google Apps Script">
+</p>
+
+<p align="center">
   <img src="https://img.shields.io/badge/Versión-2.0-indigo" alt="Versión">
   <img src="https://img.shields.io/badge/Licencia-GPL_v3-blue" alt="Licencia">
 </p>
