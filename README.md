@@ -45,7 +45,6 @@ Este no es un proyecto de "usar y tirar" generado en 5 minutos por un bot. Su hi
 3.  **Registro y auditoría:** Historial detallado con notas de celda que enumeran los emails específicos afectados.
 4.  **Directorio consolidado:** Obtención automática de usuarios (activos y suspendidos) y grupos del dominio.
 5.  **Arquitectura robusta:** Se ha migrado el uso de antiguos rangos con nombre a **tablas nativas de Google Sheets**. Esto permite que los intervalos crezcan de forma dinámica y eficiente sin necesidad de ajustes manuales.
-5.  **Arquitectura robusta:** Se ha migrado el uso de antiguos rangos con nombre a **tablas nativas de Google Sheets**. Esto permite que los intervalos crezcan de forma dinámica y eficiente sin errores de desbordamiento ni necesidad de ajustes manuales.
 
 ---
 
