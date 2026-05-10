@@ -70,6 +70,10 @@ Para cada grupo que desees gestionar:
 3.  Rellena los campos necesarios (email del grupo y lista de miembros).
 4.  Asegúrate de marcar el check de sincronización si quieres que se procese en las ejecuciones en lote.
 
+<p align="center">
+  <img src="assets/plantilla grupo.png" alt="Pestaña de plantilla de grupo">
+</p>
+
 #### 3. Ejecución de la sincronización
 Puedes sincronizar de dos formas:
 *   **Manual:** Desde el menú personalizado, sincroniza la hoja activa o todas las marcadas.
