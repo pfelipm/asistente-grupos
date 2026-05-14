@@ -6,13 +6,11 @@
  *        la lista actualizada de miembros de un grupo tras una operación
  *        de adición o eliminación de miembros.
  *         
- * V1.2 Noviembre 2024 (corrección de errores, nuevas verificaciones de usuario activo, mejoras en los mensajes emitidos)
- * 
  * @OnlyCurrentDoc
  */
 
 const PARAMS = {
-  version: 'Version: 2.0 | Mayo 2026',
+  version: 'Version: 2.1 | Mayo 2026',
   nombreApp: 'Asistente de Grupos',
   icono: '🐙',
   tituloMensajes: '🐙 Asistente de Grupos',
@@ -72,7 +70,7 @@ function onOpen() {
       .addItem('🔄 Sincronizar hoja activa', 'sincronizarUsuariosGrupo')
       .addItem('🔃 Sincronizar las hojas marcadas', 'sincronizarGrupos')
       .addSeparator()
-      .addItem('👤 Descargar usuarios del directorio', 'descargarDirectorioUsuarios')
+      .addItem('👤 Descargar usuarios del directorio', 'mostrarDialogoSeleccionDirectorio')
       .addItem('👥 Descargar grupos del directorio', 'descargarDirectorioGrupos')
       .addSeparator();
 
@@ -211,28 +209,32 @@ function esGWSAdmin(email = 'me') {
  * y además no es posible utilizar intervalos abiertos en su definición. Asistente de Grupos
  * utiliza 4 intervalos con nombre para hacer más inteligibles sus fórmulas y alimentar 
  * los desplegables que permiten seleccionar el email del grupo a sincronizar y los nombres
- * de sus miembros:
- *   - [AG_nombreGruposDirectorio]: lista de nombres de los grupos del dominio.
- *   - [AG_emailsGruposDirectorio]: lista de direcciones de email de los grupos del domininio.
- *   - [AG_nombresCompleto]: lista de nombres unificada, incluye usuarios y grupos de dominio + externos añadidos manualmente.
- *   - [AG_emailsCompleto]: lista de emails unificada, incluye usuarios y grupos de dominio + externos añadidos manualmente.
- *  Al descargar la lista de usuarios y grupos del directorio (dominio), es posible que se añadan nuevas filas por debajo. Esta función
- *  se encarga de ajustarlos para que no se queden elementos fuera (más abajo) de ellos.
+ * de sus miembros.
+ * 
+ * @param {SpreadsheetApp.Spreadsheet} [hdc] Objeto del documento actual.
  */
-function actualizarIntervalosConNombre() {
+function actualizarIntervalosConNombre(hdc = SpreadsheetApp.getActive()) {
 
-  const hdc = SpreadsheetApp.getActive();
+  try {
+    const hojaDir = hdc.getSheetByName(PARAMS.hojaDirectorios);
+    if (!hojaDir) return;
 
-  // Obtiene los intervalos con nombre que utiliza Asistente de Grupos
-  const intervalosAG = hdc.getNamedRanges().filter(intervalo => intervalo.getName().startsWith(PARAMS.prefijoIntervaloConNombre));
+    // Obtiene los intervalos con nombre que utiliza Asistente de Grupos
+    const intervalosAG = hdc.getNamedRanges().filter(intervalo => intervalo.getName().startsWith(PARAMS.prefijoIntervaloConNombre));
 
-  // Se utiliza como referencia segura la última fila de la hoja con datos, aunque no es exacto dado que las nuevas celdas podrían
-  // no estar dentro del intervalo con nombre
-  const ultimaFila = hdc.getSheetByName(PARAMS.hojaDirectorios).getLastRow();
-  intervalosAG.forEach(intervalo => {
-    const rangoActual = intervalo.getRange();
-    const numFilas = Math.max(1, ultimaFila - rangoActual.getRow() + 1);
-    intervalo.setRange(rangoActual.offset(0, 0, numFilas));
-  });
+    const ultimaFila = hojaDir.getLastRow();
+    
+    intervalosAG.forEach(intervalo => {
+      const rangoActual = intervalo.getRange();
+      // Solo actualizamos si el rango pertenece a la hoja de Directorios
+      if (rangoActual.getSheet().getName() === PARAMS.hojaDirectorios) {
+        const numFilas = Math.max(1, ultimaFila - rangoActual.getRow() + 1);
+        intervalo.setRange(rangoActual.offset(0, 0, numFilas));
+      }
+    });
+  } catch (e) {
+    // Si falla la actualización de metadatos, no bloqueamos el proceso principal
+    console.warn('No se han podido actualizar los intervalos con nombre: ' + e.message);
+  }
 
 }

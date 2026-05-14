@@ -198,7 +198,10 @@
       if (periodo === 'semana') {
         cadaPeriodo = Array.from(document.querySelectorAll('.dia-check:checked')).map(c => c.value);
         if (cadaPeriodo.length === 0) {
-          M.toast({html: 'Selecciona al menos un día', classes: 'rounded red'});
+          M.toast({
+            html: '<div style="display: flex; align-items: center;"><i class="material-icons" style="margin-right: 10px;">warning</i><span>Selecciona al menos un día</span></div>',
+            classes: 'rounded red'
+          });
           return;
         }
       } else {
@@ -214,19 +217,25 @@
         .withFailureHandler((error) => {
           alternarControles(true);
           M.toast({
-            displayLength: 7000,
+            displayLength: Infinity,
             classes: 'rounded <?= PARAMS.mToast.excepcion.color ?>',
-            html: `<div style="display: flex; align-items: center;"><i class="material-icons" style="margin-right: 10px;"><?!= PARAMS.mToast.excepcion.icono ?></i><span>${error}</span></div>`
+            html: `<div style="display: flex; align-items: center; width: 100%; justify-content: space-between;">
+                     <div style="display: flex; align-items: center;">
+                       <i class="material-icons" style="margin-right: 10px;"><?!= PARAMS.mToast.excepcion.icono ?></i>
+                       <span>${error}</span>
+                     </div>
+                     <i class="material-icons" style="cursor: pointer; margin-left: 10px;" onclick="M.Toast.getInstance(this.parentElement.parentElement).dismiss();">close</i>
+                   </div>`
           });
         })
         .withSuccessHandler((resultado) => {
           M.toast({
-            displayLength: 7000,
+            displayLength: 5000,
             classes: `rounded ${resultado.estilo.color}`,
             html: `<div style="display: flex; align-items: center;"><i class="material-icons" style="margin-right: 10px;">${resultado.estilo.icono}</i><span>${resultado.mensaje}</span></div>`
           });
-          if (resultado.estilo.color.includes('green')) {
-            setTimeout(() => google.script.host.close(), 3500);
+          if (resultado.estilo.color.includes('green') || resultado.estilo.color.includes('orange')) {
+            setTimeout(() => google.script.host.close(), 5000);
           } else {
             alternarControles(true);
           }

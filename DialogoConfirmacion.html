@@ -64,19 +64,30 @@
         .withSuccessHandler((resultado) => {
           if (resultado && resultado.estilo) {
             M.toast({
-              displayLength: 7000,
+              displayLength: 5000,
               classes: `rounded ${resultado.estilo.color}`,
               html: `<div style="display: flex; align-items: center;"><i class="material-icons" style="margin-right: 10px;">${resultado.estilo.icono}</i><span>${resultado.mensaje}</span></div>`
             });
           }
-          setTimeout(() => google.script.host.close(), 3500);
+          setTimeout(() => google.script.host.close(), 5000);
         })
         .withFailureHandler((err) => {
-          alert("Error: " + err);
-          google.script.host.close();
-        })
-        [funcion]();
-    };
+          btnSi.disabled = false;
+          btnNo.disabled = false;
+          progreso.style.display = 'none';
+          M.toast({
+            displayLength: Infinity,
+            classes: 'rounded red darken-4',
+            html: `<div style="display: flex; align-items: center; width: 100%; justify-content: space-between;">
+                     <div style="display: flex; align-items: center;">
+                       <i class="material-icons" style="margin-right: 10px;">warning</i>
+                       <span>${err}</span>
+                     </div>
+                     <i class="material-icons" style="cursor: pointer; margin-left: 10px;" onclick="M.Toast.getInstance(this.parentElement.parentElement).dismiss();">close</i>
+                   </div>`
+          });
+        })[funcion]();
+    }
   </script>
 </body>
 

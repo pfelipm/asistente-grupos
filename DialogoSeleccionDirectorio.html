@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <style>
+    body {
+      padding: 15px;
+      overflow: hidden;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    /* Toast en la parte inferior, centrado y con esquinas redondeadas */
+    #toast-container {
+      top: auto !important;
+      bottom: 10% !important;
+      left: 50% !important;
+      right: auto !important;
+      transform: translateX(-50%) !important;
+      width: 90% !important;
+      max-width: 90% !important;
+      position: fixed !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+    }
+    .toast {
+      background-color: #323232;
+      border-radius: 24px !important; /* Esquinas redondeadas */
+      min-width: 100% !important;
+      display: flex !important;
+      justify-content: center !important;
+      padding: 10px 20px !important;
+    }
+
+    /* Estructura para asegurar el ancho completo */
+    .main-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    fieldset {
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      padding: 10px 20px 20px 20px;
+      margin-bottom: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    
+    legend {
+      font-weight: bold;
+      background-color: #f5f5f5;
+      padding: 2px 15px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+    .input-field {
+      margin-top: 1.5rem;
+      width: 100%;
+    }
+
+    .btn-container {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    .btn {
+      flex: 1;
+      text-transform: none;
+      font-weight: 500;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #progreso {
+      margin-top: 10px;
+      visibility: hidden;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main-container">
+    <form id="formDirectorio">
+      <fieldset>
+        <legend>Ámbito de descarga</legend>
+        
+        <div class="input-field">
+          <select id="tipoFiltro">
+            <option value="total" selected>Toda la organización</option>
+            <option value="dominio">Por dominio específico</option>
+            <option value="uo">Por unidad organizativa (UO)</option>
+          </select>
+          <label>Selecciona qué usuarios descargar</label>
+        </div>
+
+        <div id="wrapperSeleccion" class="input-field" style="display: none;">
+          <select id="valorFiltro">
+          </select>
+          <label id="labelValorFiltro">Seleccionar...</label>
+        </div>
+      </fieldset>
+    </form>
+
+    <div id="progreso" class="progress">
+      <div class="indeterminate"></div>
+    </div>
+
+    <div class="btn-container">
+      <button id="btnCancelar" class="btn waves-effect waves-light grey lighten-1 black-text">
+        <i class="material-icons left">cancel</i>Cancelar
+      </button>
+      <button id="btnDescargar" class="btn waves-effect waves-light green darken-3">
+        <i class="material-icons left">cloud_download</i>Descargar
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let datosOpciones = {};
+
+    document.addEventListener('DOMContentLoaded', function() {
+      M.AutoInit();
+      
+      google.script.run
+        .withSuccessHandler(inicializarFormulario)
+        .withFailureHandler(mostrarError)
+        .obtenerOpcionesParaDirectorio();
+
+      document.getElementById('tipoFiltro').addEventListener('change', actualizarInterfaz);
+      document.getElementById('btnCancelar').addEventListener('click', () => google.script.host.close());
+      document.getElementById('btnDescargar').addEventListener('click', descargar);
+    });
+
+    function inicializarFormulario(opciones) {
+      datosOpciones = opciones;
+      actualizarInterfaz();
+    }
+
+    function actualizarInterfaz() {
+      const tipo = document.getElementById('tipoFiltro').value;
+      const wrapper = document.getElementById('wrapperSeleccion');
+      const select = document.getElementById('valorFiltro');
+      const label = document.getElementById('labelValorFiltro');
+      
+      select.innerHTML = '';
+      
+      if (tipo === 'total') {
+        wrapper.style.display = 'none';
+      } else {
+        wrapper.style.display = 'block';
+        const items = tipo === 'dominio' ? datosOpciones.dominios : datosOpciones.uos;
+        label.innerText = tipo === 'dominio' ? 'Seleccionar dominio' : 'Seleccionar UO';
+        
+        items.forEach(item => {
+          const opt = document.createElement('option');
+          opt.value = item;
+          opt.text = item;
+          select.appendChild(opt);
+        });
+      }
+      
+      M.FormSelect.init(document.querySelectorAll('select'));
+    }
+
+    function alternarControles(habilitado) {
+      document.querySelectorAll('button, select').forEach(el => el.disabled = !habilitado);
+      document.getElementById('progreso').style.visibility = habilitado ? 'hidden' : 'visible';
+      M.FormSelect.init(document.querySelectorAll('select'));
+    }
+
+    function mostrarError(error) {
+      M.toast({
+        displayLength: Infinity, // Persistente hasta que el usuario lo cierre
+        html: `<div style="display: flex; align-items: center; width: 100%; justify-content: space-between;">
+                 <div style="display: flex; align-items: center;">
+                   <i class="material-icons" style="margin-right: 10px;">error</i>
+                   <span>${error}</span>
+                 </div>
+                 <i class="material-icons" style="cursor: pointer; margin-left: 10px;" onclick="M.Toast.getInstance(this.parentElement.parentElement).dismiss();">close</i>
+               </div>`,
+        classes: 'red darken-4 rounded'
+      });
+      alternarControles(true);
+    }
+
+    function descargar() {
+      const config = {
+        tipo: document.getElementById('tipoFiltro').value,
+        valor: document.getElementById('valorFiltro').value
+      };
+
+      alternarControles(false);
+
+      M.toast({
+        html: '<div style="display: flex; align-items: center;"><i class="material-icons" style="margin-right: 10px;">sync</i><span>Iniciando descarga...</span></div>',
+        displayLength: 2000,
+        classes: 'blue darken-3'
+      });
+
+      google.script.run
+        .withSuccessHandler((res) => {
+          M.toast({
+            displayLength: 5000,
+            html: `<div style="display: flex; align-items: center;"><i class="material-icons" style="margin-right: 10px;">check_circle</i><span>${res}</span></div>`,
+            classes: 'green darken-4 rounded'
+          });
+          setTimeout(() => google.script.host.close(), 5000);
+        })
+        .withFailureHandler(mostrarError)
+        .ejecutarDescargaDirectorio(config);
+    }  </script>
+</body>
+
+</html>

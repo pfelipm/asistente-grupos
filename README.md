@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Versión-2.0-indigo" alt="Versión">
+  <img src="https://img.shields.io/badge/Versión-2.1-indigo" alt="Versión">
   <img src="https://img.shields.io/badge/Licencia-GPL_v3-blue" alt="Licencia">
 </p>
 
@@ -31,7 +31,7 @@ Este no es un proyecto de "usar y tirar" generado en 5 minutos por un bot. Su hi
 
 1.  **El origen (junio 2023):** Fue creado de manera totalmente manual para resolver una necesidad real en el centro educativo donde soy Jefe de Estudios, Tecnología y Calidad (puedes ver el [tuit original de su gestación aquí](https://x.com/pfelipm/status/1671536677091770369)).
 2.  **La prueba de fuego:** Ha estado funcionando en la sombra durante **3 cursos escolares completos** (23/24, 24/25 y 25/26) con una fiabilidad total.
-3.  **El empujón final (mayo 2026):** Siempre quise liberarlo, pero me faltaba tiempo para pulir la interfaz de usuario. Gracias a **Gemini CLI**, en una mañana de sábado, hemos logrado cablear ese diálogo de programación granular, que estaba ya casi listo, y añadir alguna que otra mejora de usabilidad.
+3.  **El empujón final (mayo 2026):** Siempre quise liberarlo, pero me faltaba tiempo para pulir la interfaz de usuario. Gracias a **Gemini CLI**, en una mañana de sábado, hemos logrado cablear ese diálogo de programación granular, que estaba ya casi listo, y añadir mejoras críticas de usabilidad y soporte para entornos complejos.
 
 ---
 
@@ -43,7 +43,7 @@ Este no es un proyecto de "usar y tirar" generado en 5 minutos por un bot. Su hi
     *   **Por días:** Cada X días (de 1 a 7) en una franja horaria específica.
     *   **Por semanas:** Selección de **días específicos de la semana** (ej. lunes, miércoles y viernes) a una hora determinada.
 3.  **Registro y auditoría:** Historial detallado con notas de celda que enumeran los emails específicos afectados.
-4.  **Directorio consolidado:** Obtención automática de usuarios (activos y suspendidos) y grupos del dominio.
+4.  **Directorio avanzado:** Soporte para entornos multi-dominio y filtrado por Unidades Organizativas (UO), facilitando la descarga de usuarios específicos de toda la organización.
 5.  **Arquitectura robusta:** Se ha migrado el uso de antiguos rangos con nombre a **tablas nativas de Google Sheets**. Esto permite que los intervalos crezcan de forma dinámica y eficiente sin necesidad de ajustes manuales.
 
 ---
@@ -53,9 +53,18 @@ Este no es un proyecto de "usar y tirar" generado en 5 minutos por un bot. Su hi
 La distribución se realiza a partir de esta **[plantilla de Google Sheets](https://docs.google.com/spreadsheets/d/1EcPlAlm4K-ekocVoLgHZC0uu8uVezL0BmZogzFfTsH8/edit?usp=sharing)** que debes duplicar.
 
 #### 1. Preparación del directorio
-Tras autorizar el script, el primer paso es poblar la hoja **"Directorio"**. Usa los comandos del menú para descargar los usuarios y grupos de tu dominio. Mediante fórmulas internas, se construirá un directorio consolidado:
-*   Los emails en color normal son usuarios o grupos activos.
-*   Los emails en **gris** corresponden a usuarios suspendidos.
+Tras autorizar el script, el primer paso es poblar la hoja **"Directorio"**. Usa los comandos del menú para descargar los usuarios y grupos de tu organización.
+
+A diferencia de otras herramientas, el Asistente de Grupos ofrece un **selector de ámbito de descarga** flexible. Puedes elegir descargar:
+*   **Toda la organización:** Incluye todos los dominios secundarios y alias de la consola.
+*   **Por dominio específico:** Filtra los usuarios de un dominio concreto.
+*   **Por Unidad Organizativa (UO):** Permite descargar solo los usuarios pertenecientes a una rama específica de tu estructura organizativa.
+
+<p align="center">
+  <img src="assets/descarga directorio.png" alt="Selector de ámbito de descarga" width="450">
+</p>
+
+Mediante fórmulas internas en la hoja, se construirá un directorio consolidado donde los emails en color normal son activos y los en **gris** corresponden a usuarios suspendidos.
 
 Además, el sistema soporta la gestión de **miembros externos** (usuarios o grupos que no pertenecen a tu organización). Solo tienes que añadirlos manualmente en la sección central de la hoja **"Directorio"**, indicando su nombre y dirección de correo electrónico completa. Estos miembros aparecerán automáticamente como opciones seleccionables en las pestañas de tus grupos.
 
