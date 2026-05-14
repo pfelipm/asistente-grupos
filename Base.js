@@ -31,7 +31,6 @@ const PARAMS = {
     checkRegistro: 'C1',
     checkNotas: 'E1'
   },
-  prefijoIntervaloConNombre: 'AG_',
   // Clave utilizada para almacenar en las propiedades del script los ajustes del activador { cadaPeriodo, periodo, hora}
   clavePropActivador: 'ajustesActivador', 
   // Clave utilizada para almacenar en las propiedades del usuario si es o no admin
@@ -201,40 +200,5 @@ function esGWSAdmin(email = 'me') {
     }
   }
   return esAdmin;
-
-}
-
-/**
- * Los intervalos con nombre no se expanden cuando se añaden filas por su parte inferior,
- * y además no es posible utilizar intervalos abiertos en su definición. Asistente de Grupos
- * utiliza 4 intervalos con nombre para hacer más inteligibles sus fórmulas y alimentar 
- * los desplegables que permiten seleccionar el email del grupo a sincronizar y los nombres
- * de sus miembros.
- * 
- * @param {SpreadsheetApp.Spreadsheet} [hdc] Objeto del documento actual.
- */
-function actualizarIntervalosConNombre(hdc = SpreadsheetApp.getActive()) {
-
-  try {
-    const hojaDir = hdc.getSheetByName(PARAMS.hojaDirectorios);
-    if (!hojaDir) return;
-
-    // Obtiene los intervalos con nombre que utiliza Asistente de Grupos
-    const intervalosAG = hdc.getNamedRanges().filter(intervalo => intervalo.getName().startsWith(PARAMS.prefijoIntervaloConNombre));
-
-    const ultimaFila = hojaDir.getLastRow();
-    
-    intervalosAG.forEach(intervalo => {
-      const rangoActual = intervalo.getRange();
-      // Solo actualizamos si el rango pertenece a la hoja de Directorios
-      if (rangoActual.getSheet().getName() === PARAMS.hojaDirectorios) {
-        const numFilas = Math.max(1, ultimaFila - rangoActual.getRow() + 1);
-        intervalo.setRange(rangoActual.offset(0, 0, numFilas));
-      }
-    });
-  } catch (e) {
-    // Si falla la actualización de metadatos, no bloqueamos el proceso principal
-    console.warn('No se han podido actualizar los intervalos con nombre: ' + e.message);
-  }
 
 }

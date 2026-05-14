@@ -107,9 +107,8 @@ function descargarDirectorioUsuarios(config = { tipo: 'total' }) {
         usuarios.sort(((u1, u2) => u1[0].localeCompare(u2[0])))
       );
 
-    // Asegurar que los datos se asientan antes de actualizar intervalos
+    // Asegurar que los datos se asientan
     SpreadsheetApp.flush();
-    actualizarIntervalosConNombre(hdc);
     
     const msgFinal = `Proceso completado. ${usuarios.length} usuarios descargados.`;
     return msgFinal;
@@ -170,7 +169,6 @@ function descargarDirectorioGrupos() {
       );
 
     SpreadsheetApp.flush();
-    actualizarIntervalosConNombre(hdc);
     return `Proceso completado. ${grupos.length} grupos descargados.`;
 
   }
