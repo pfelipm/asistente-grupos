@@ -62,6 +62,7 @@ A diferencia de otras herramientas, el Asistente de Grupos ofrece un **selector 
 
 <p align="center">
   <img src="assets/descarga directorio.png" alt="Selector de ámbito de descarga" width="450">
+  <img src="assets/descarga directorio-fin.png" alt="Resultado de descarga masiva" width="450">
 </p>
 
 Mediante fórmulas internas en la hoja, se construirá un directorio consolidado donde los emails en color normal son activos y los en **gris** corresponden a usuarios suspendidos.
