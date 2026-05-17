@@ -23,6 +23,10 @@ Este proyecto nace para automatizar ese proceso. Permite sincronizar listas de m
 
 La sincronización es **estrictamente unidireccional**: la lista de miembros del grupo será exclusivamente la indicada en la pestaña de cada grupo. El script añadirá nuevos miembros o eliminará los existentes que no estén en la hoja de manera automática e irrevocable.
 
+<p align="center">
+  <img src="assets/infografía-funcionamiento.png" alt="Infografía de funcionamiento de Asistente de Grupos">
+</p>
+
 > 💡 **Nota técnica sobre membresía:** El script soporta la inclusión de grupos como miembros de otros grupos, pero la comprobación de pertenencia se realiza de forma **directa**. Esto significa que el script no verifica si un usuario ya pertenece al grupo de forma anidada (a través de otro grupo intermedio) antes de procesar el alta o la baja.
 
 ### 📜 Una historia de cocción lenta (90% humana, 10% IA)
