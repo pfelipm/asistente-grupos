@@ -27,6 +27,12 @@ La sincronización es **estrictamente unidireccional**: la lista de miembros del
   <img src="assets/infografía-funcionamiento.png" alt="Infografía de funcionamiento de Asistente de Grupos">
 </p>
 
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=Uk_LCqnuQ5Q">
+    <img src="https://img.youtube.com/vi/Uk_LCqnuQ5Q/maxresdefault.jpg" alt="Ver vídeo demostrativo de Asistente de Grupos" width="600">
+  </a>
+</p>
+
 > 💡 **Nota técnica sobre membresía:** El script soporta la inclusión de grupos como miembros de otros grupos, pero la comprobación de pertenencia se realiza de forma **directa**. Esto significa que el script no verifica si un usuario ya pertenece al grupo de forma anidada (a través de otro grupo intermedio) antes de procesar el alta o la baja.
 
 ### 📜 Una historia de cocción lenta (90% humana, 10% IA)
