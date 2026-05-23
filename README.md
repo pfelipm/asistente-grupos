@@ -140,7 +140,7 @@ La hoja **"Registro"** permite llevar un seguimiento exhaustivo de qué cambios 
 
 ¿Has encontrado un bug o tienes una idea genial? Siéntete libre de abrir un *issue* o enviar un *pull request*. 
 
-### ✍️ Autoría y agradecimientos
+### ✍️ Créditos
 
 *   **Autor:** Pablo Felip ([@pfelipm](https://twitter.com/pfelipm))
 *   **Licencia:** GNU GPL v3.
