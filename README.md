@@ -72,10 +72,16 @@ A diferencia de otras herramientas, el Asistente de Grupos ofrece un **selector 
 *   **Por dominio específico:** Filtra los usuarios de un dominio concreto.
 *   **Por Unidad Organizativa (UO):** Permite descargar solo los usuarios pertenecientes a una rama específica de tu estructura organizativa.
 
-<p align="center">
-  <img src="assets/descarga directorio.png" alt="Selector de ámbito de descarga" width="450" style="vertical-align: middle;">
-  <img src="assets/descarga directorio-fin.png" alt="Resultado de descarga masiva" width="450" style="vertical-align: middle;">
-</p>
+<table align="center" border="0">
+  <tr>
+    <td align="center" style="vertical-align: middle; border: none;">
+      <img src="assets/descarga directorio.png" alt="Selector de ámbito de descarga" width="450">
+    </td>
+    <td align="center" style="vertical-align: middle; border: none;">
+      <img src="assets/descarga directorio-fin.png" alt="Resultado de descarga masiva" width="450">
+    </td>
+  </tr>
+</table>
 
 Mediante fórmulas internas en la hoja, se construirá un directorio consolidado donde los emails en color normal son activos y los en **gris** corresponden a usuarios suspendidos.
 
