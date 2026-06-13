@@ -72,12 +72,12 @@ A diferencia de otras herramientas, el Asistente de Grupos ofrece un **selector 
 *   **Por dominio específico:** Filtra los usuarios de un dominio concreto.
 *   **Por Unidad Organizativa (UO):** Permite descargar solo los usuarios pertenecientes a una rama específica de tu estructura organizativa.
 
-<table align="center" style="border: none; border-collapse: collapse; border-spacing: 0;">
-  <tr style="border: none;">
-    <td align="center" style="vertical-align: middle; border: none; padding: 0;">
+<table align="center" border="0" cellpadding="0" cellspacing="0" style="border: 0; border-collapse: collapse; border-spacing: 0; background: transparent;">
+  <tr style="border: 0; background: transparent;">
+    <td align="center" style="vertical-align: middle; border: 0; padding: 0; background: transparent;">
       <img src="assets/descarga directorio.png" alt="Selector de ámbito de descarga" width="450">
     </td>
-    <td align="center" style="vertical-align: middle; border: none; padding: 0;">
+    <td align="center" style="vertical-align: middle; border: 0; padding: 0; background: transparent;">
       <img src="assets/descarga directorio-fin.png" alt="Resultado de descarga masiva" width="450">
     </td>
   </tr>
